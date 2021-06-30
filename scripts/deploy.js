@@ -50,13 +50,23 @@ async function main() {
     throw Error(`Error:: ${tx.hash}`)
   }
   console.log('Prize NFT set approved in Voucher Contract: transaction hash:' + tx.hash)
+
+  return {
+    accounts: accounts,
+    voucherContract: voucherContract,
+    prizeNFT: prizeNFT,
+  }
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-main()
-  .then(() => process.exit(0))
-  .catch(error => {
-    console.error(error);
-    process.exit(1);
-  });
+if (require.main === module) {
+  main()
+    .then(() => process.exit(0))
+    .catch(error => {
+      console.error(error);
+      process.exit(1);
+    });
+}
+
+exports.deploy = main

@@ -31,6 +31,10 @@ contract PrizeNFT is ERC721URIStorage {
             _who == msg.sender || isApprovedForAll(_who, msg.sender),
             "ERC721: caller is not owner nor approved"
         );
+        require(
+            vc.balanceOf(_who, _prizeId) >= _prizeQuantity,
+            "ERC721: Not enough balance"
+        );
 
         uint256 _prizeNFTId = _tokenIds.current();
 
